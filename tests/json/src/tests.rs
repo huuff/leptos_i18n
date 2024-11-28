@@ -13,22 +13,52 @@ fn click_to_change_lang() {
 fn click_count() {
     for count in -5..5 {
         let en = td!(Locale::en, click_count, count);
-        assert_eq_rendered!(en, format!("You clicked {} times", count));
+        assert_eq_rendered!(
+            en,
+            format!(
+                "<span>You clicked </span><span>{}</span><span> times</span>",
+                count
+            )
+        );
         let fr = td!(Locale::fr, click_count, count);
-        assert_eq_rendered!(fr, format!("Vous avez cliqué {} fois", count));
+        assert_eq_rendered!(
+            fr,
+            format!(
+                "<span>Vous avez cliqué </span><span>{}</span><span> fois</span>",
+                count
+            )
+        );
     }
 
     let count = "whatever impl into view";
     let en = td!(Locale::en, click_count, count);
-    assert_eq_rendered!(en, format!("You clicked {} times", count));
+    assert_eq_rendered!(
+        en,
+        format!(
+            "<span>You clicked </span><span>{}</span><span> times</span>",
+            count
+        )
+    );
     let fr = td!(Locale::fr, click_count, count);
-    assert_eq_rendered!(fr, format!("Vous avez cliqué {} fois", count));
+    assert_eq_rendered!(
+        fr,
+        format!(
+            "<span>Vous avez cliqué </span><span>{}</span><span> fois</span>",
+            count
+        )
+    );
 
     let count = view! { <p>"even a view!"</p> };
     let en = td!(Locale::en, click_count, count = count.clone());
-    assert_eq_rendered!(en, "You clicked <p>even a view!</p> times");
+    assert_eq_rendered!(
+        en,
+        "<span>You clicked </span><span><p>even a view!</p></span><span> times</span>"
+    );
     let fr = td!(Locale::fr, click_count, count);
-    assert_eq_rendered!(fr, "Vous avez cliqué <p>even a view!</p> fois");
+    assert_eq_rendered!(
+        fr,
+        "<span>Vous avez cliqué </span><span><p>even a view!</p></span><span> fois</span>"
+    );
 }
 
 #[test]

@@ -1026,7 +1026,7 @@ impl ToTokens for ParsedValue {
             [] => quote!(l_i18n_crate::reexports::leptos::View::default()),
             [value] => value.clone(),
             values => {
-                quote!(l_i18n_crate::reexports::leptos::CollectView::collect_view([#(#values,)*]))
+                quote!(l_i18n_crate::collect_into_spans::collect_into_spans([#(#values,)*]))
             }
         }
     }

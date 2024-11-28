@@ -13,16 +13,40 @@ fn foreign_key_to_string() {
 fn foreign_key_to_interpolation() {
     for count in -5..5 {
         let en = td!(Locale::en, foreign_key_to_interpolation, count);
-        assert_eq_rendered!(en, format!("before You clicked {} times after", count));
+        assert_eq_rendered!(
+            en,
+            format!(
+                "<span>before You clicked </span><span>{}</span><span> times after</span>",
+                count
+            )
+        );
         let fr = td!(Locale::fr, foreign_key_to_interpolation, count);
-        assert_eq_rendered!(fr, format!("before Vous avez cliqué {} fois after", count));
+        assert_eq_rendered!(
+            fr,
+            format!(
+                "<span>before Vous avez cliqué </span><span>{}</span><span> fois after</span>",
+                count
+            )
+        );
     }
 
     let count = "whatever impl into view";
     let en = td!(Locale::en, foreign_key_to_interpolation, count);
-    assert_eq_rendered!(en, format!("before You clicked {} times after", count));
+    assert_eq_rendered!(
+        en,
+        format!(
+            "<span>before You clicked </span><span>{}</span><span> times after</span>",
+            count
+        )
+    );
     let fr = td!(Locale::fr, foreign_key_to_interpolation, count);
-    assert_eq_rendered!(fr, format!("before Vous avez cliqué {} fois after", count));
+    assert_eq_rendered!(
+        fr,
+        format!(
+            "<span>before Vous avez cliqué </span><span>{}</span><span> fois after</span>",
+            count
+        )
+    );
 
     let count = view! { <p>"even a view!"</p> };
     let en = td!(
@@ -30,9 +54,12 @@ fn foreign_key_to_interpolation() {
         foreign_key_to_interpolation,
         count = count.clone()
     );
-    assert_eq_rendered!(en, "before You clicked <p>even a view!</p> times after");
+    assert_eq_rendered!(
+        en,
+        "<span>before You clicked </span><span><p>even a view!</p></span><span> times after</span>"
+    );
     let fr = td!(Locale::fr, foreign_key_to_interpolation, count);
-    assert_eq_rendered!(fr, "before Vous avez cliqué <p>even a view!</p> fois after");
+    assert_eq_rendered!(fr, "<span>before Vous avez cliqué </span><span><p>even a view!</p></span><span> fois after</span>");
 }
 
 #[test]
@@ -62,9 +89,15 @@ fn populated_foreign_key() {
 #[test]
 fn populated_foreign_key_with_arg() {
     let en = td!(Locale::en, populated_foreign_key_with_arg, new_count = 12);
-    assert_eq_rendered!(en, "before You clicked 12 times after");
+    assert_eq_rendered!(
+        en,
+        "<span>before You clicked </span><span>12</span><span> times after</span>"
+    );
     let fr = td!(Locale::fr, populated_foreign_key_with_arg, new_count = 67);
-    assert_eq_rendered!(fr, "before Vous avez cliqué 67 fois after");
+    assert_eq_rendered!(
+        fr,
+        "<span>before Vous avez cliqué </span><span>67</span><span> fois after</span>"
+    );
 }
 
 #[test]

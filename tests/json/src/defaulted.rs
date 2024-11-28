@@ -12,9 +12,15 @@ fn defaulted_string() {
 #[test]
 fn defaulted_interpolation() {
     let en = td!(Locale::en, defaulted_interpolation, locale = "en");
-    assert_eq_rendered!(en, "this interpolation is declared in locale en");
+    assert_eq_rendered!(
+        en,
+        "<span>this interpolation is declared in locale </span><span>en</span>"
+    );
     let fr = td!(Locale::fr, defaulted_interpolation, locale = "en");
-    assert_eq_rendered!(fr, "this interpolation is declared in locale en");
+    assert_eq_rendered!(
+        fr,
+        "<span>this interpolation is declared in locale </span><span>en</span>"
+    );
 }
 
 #[test]
@@ -28,9 +34,15 @@ fn defaulted_ranges() {
     for i in [-3, 5, 12] {
         let count = move || i;
         let en = td!(Locale::en, defaulted_ranges, locale = "en", count);
-        assert_eq_rendered!(en, "this range is declared in locale en");
+        assert_eq_rendered!(
+            en,
+            "<span>this range is declared in locale </span><span>en</span>"
+        );
         let fr = td!(Locale::fr, defaulted_ranges, locale = "en", count);
-        assert_eq_rendered!(fr, "this range is declared in locale en");
+        assert_eq_rendered!(
+            fr,
+            "<span>this range is declared in locale </span><span>en</span>"
+        );
     }
 }
 

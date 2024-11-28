@@ -107,6 +107,7 @@
 //! }
 //! ```
 
+pub mod collect_into_spans;
 pub mod context;
 mod fetch_locale;
 mod langid;

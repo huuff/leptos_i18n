@@ -23,9 +23,15 @@ fn f32_range() {
     for i in [100.34, 57.69, 0.0 + 0.00001] {
         let count = move || i;
         let en = td!(Locale::en, f32_range, count);
-        assert_eq_rendered!(en, format!("You have {}€", i));
+        assert_eq_rendered!(
+            en,
+            format!("<span>You have </span><span>{}</span><span>€</span>", i)
+        );
         let fr = td!(Locale::fr, f32_range, count);
-        assert_eq_rendered!(fr, format!("Vous avez {}€", i));
+        assert_eq_rendered!(
+            fr,
+            format!("<span>Vous avez </span><span>{}</span><span>€</span>", i)
+        );
     }
 }
 
@@ -183,17 +189,17 @@ fn f32_or_range_string() {
 fn args_to_range() {
     let count = move || 1;
     let en = td!(Locale::en, args_to_range, count);
-    assert_eq_rendered!(en, "en 1");
+    assert_eq_rendered!(en, "<span>en </span><span>1</span>");
     let fr = td!(Locale::fr, args_to_range, count);
-    assert_eq_rendered!(fr, "fr 1");
+    assert_eq_rendered!(fr, "<span>fr </span><span>1</span>");
 }
 
 #[test]
 fn count_arg_to_range() {
     let en = td!(Locale::en, count_arg_to_range, arg = "en");
-    assert_eq_rendered!(en, "en zero");
+    assert_eq_rendered!(en, "<span>en</span><span> zero</span>");
     let fr = td!(Locale::fr, count_arg_to_range, arg = "fr");
-    assert_eq_rendered!(fr, "fr zero");
+    assert_eq_rendered!(fr, "<span>fr</span><span> zero</span>");
 }
 
 #[test]
@@ -201,8 +207,13 @@ fn renamed_ranges_count() {
     let first_count = move || 0.0;
     let second_count = move || 1;
     let en = td!(Locale::en, renamed_ranges_count, first_count, second_count);
-    assert_eq_rendered!(en, "You are broke 1..5 | 6..10");
+    assert_eq_rendered!(
+        en,
+        "<span>You are broke</span><span> </span><span>1..5 | 6..10</span>"
+    );
     let fr = td!(Locale::fr, renamed_ranges_count, first_count, second_count);
-    assert_eq_rendered!(fr, "Vous êtes pauvre 1..5 | 6..10");
+    assert_eq_rendered!(
+        fr,
+        "<span>Vous êtes pauvre</span><span> </span><span>1..5 | 6..10</span>"
+    );
 }
-
